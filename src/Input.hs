@@ -3,4 +3,4 @@ module Input where
 import Types
 
 pollEvents :: IO Events
-pollEvents = undefined
+pollEvents = return [] -- TODO: implement this!
