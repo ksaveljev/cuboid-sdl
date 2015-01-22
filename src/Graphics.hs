@@ -35,5 +35,5 @@ createRenderer = SDL.glCreateContext
 destroyRenderer :: SDL.GLContext -> IO ()
 destroyRenderer = SDL.glDeleteContext
 
-draw :: GameState -> IO ()
-draw = undefined
+draw :: SDL.Window -> GameState -> IO ()
+draw window gameState = print gameState

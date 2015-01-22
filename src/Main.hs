@@ -30,13 +30,15 @@ main = bracket_ initSDL quitSDL $ do
   renderer <- createRenderer window
 
   let init' = SDL.getTicks >>= writeIORef timeRef >> return []
+
       sense _ = do currentTimeRef <- SDL.getTicks
                    previousTimeRef <- readIORef timeRef
                    writeIORef timeRef currentTimeRef
                    let dt = fromIntegral (currentTimeRef - previousTimeRef) / 1000
                    events <- pollEvents
                    return (dt, if null events then Nothing else Just events)
-      actuate _ gameState = draw gameState >> return False
+
+      actuate _ gameState = draw window gameState >> return False
 
   reactimate init' sense actuate (parseInput >>> update)
 
