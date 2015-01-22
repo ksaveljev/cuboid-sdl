@@ -38,7 +38,7 @@ main = bracket_ initSDL quitSDL $ do
                    events <- pollEvents
                    return (dt, if null events then Nothing else Just events)
 
-      actuate _ gameState = draw window gameState >> return False
+      actuate _ (b, gameState) = draw window gameState >> return b
 
   reactimate init' sense actuate (parseInput >>> update)
 

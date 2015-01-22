@@ -6,6 +6,8 @@ import qualified Graphics.UI.SDL as SDL
 
 type Events = [SDL.Event]
 
+data Key = W | A | S | D | OTHER
+
 type R = GLdouble
 
 data Point3D = P3D { x :: Integer
@@ -27,4 +29,5 @@ data ParsedInput = ParsedInput { wCount :: Integer
                                , aCount :: Integer
                                , sCount :: Integer
                                , dCount :: Integer
+                               , sdlQuit :: Bool
                                }
