@@ -1,14 +1,13 @@
-{-# LANGUAGE Arrows #-}
-
 import Data.IORef (newIORef, writeIORef, readIORef)
 import Control.Exception (bracket_)
-import FRP.Yampa (reactimate, SF, returnA)
+import Control.Category ((>>>))
+import FRP.Yampa (reactimate)
 import qualified Graphics.UI.SDL as SDL
 
 import Foreign.C.Types (CInt)
 
-import Types
 import Input
+import Update
 import Graphics
 
 windowTitle :: String
@@ -19,11 +18,6 @@ windowWidth = 640
 
 windowHeight :: CInt
 windowHeight = 480
-
--- TODO: actually implement this!
-mainSF :: SF Events (IO ())
-mainSF = proc _ ->
-  returnA -< return ()
 
 main :: IO ()
 main = bracket_ initSDL quitSDL $ do
@@ -42,9 +36,9 @@ main = bracket_ initSDL quitSDL $ do
                    let dt = fromIntegral (currentTimeRef - previousTimeRef) / 1000
                    events <- pollEvents
                    return (dt, if null events then Nothing else Just events)
-      actuate _ _ = return False -- TODO: implement this!
+      actuate _ gameState = draw gameState >> return False
 
-  reactimate init' sense actuate mainSF
+  reactimate init' sense actuate (parseInput >>> update)
 
   destroyRenderer renderer
   destroyWindow window

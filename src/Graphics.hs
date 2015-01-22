@@ -6,6 +6,8 @@ import qualified Graphics.UI.SDL as SDL
 import Foreign.C.String (withCAString)
 import Foreign.C.Types (CInt)
 
+import Types
+
 initSDL :: IO ()
 initSDL = void $ SDL.init SDL.SDL_INIT_VIDEO
 
@@ -32,3 +34,6 @@ createRenderer = SDL.glCreateContext
 
 destroyRenderer :: SDL.GLContext -> IO ()
 destroyRenderer = SDL.glDeleteContext
+
+draw :: GameState -> IO ()
+draw = undefined
