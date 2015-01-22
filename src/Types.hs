@@ -6,7 +6,7 @@ import qualified Graphics.UI.SDL as SDL
 
 type Events = [SDL.Event]
 
-data Key = W | A | S | D | OTHER
+data Key = W | A | S | D | UP | DOWN | LEFT | RIGHT | OTHER deriving (Eq)
 
 type R = GLdouble
 
@@ -25,9 +25,13 @@ data GameState = Game { level :: Level
                       , playerPos :: Vector3 R
                       } deriving (Show)
 
-data ParsedInput = ParsedInput { wCount :: Integer
-                               , aCount :: Integer
-                               , sCount :: Integer
-                               , dCount :: Integer
+data ParsedInput = ParsedInput { wCount :: Double
+                               , aCount :: Double
+                               , sCount :: Double
+                               , dCount :: Double
+                               , upEvents :: Int
+                               , downEvents :: Int
+                               , rightEvents :: Int
+                               , leftEvents :: Int
                                , sdlQuit :: Bool
                                }
