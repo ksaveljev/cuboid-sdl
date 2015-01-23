@@ -1,12 +1,14 @@
 module Types where
 
+import FRP.Yampa.Vector3
 import Graphics.Rendering.OpenGL.Raw.Types (GLdouble)
-import Graphics.Rendering.OpenGL.GL.Tensor (Vector3)
 import qualified Graphics.UI.SDL as SDL
 
 type Events = [SDL.Event]
 
 data Key = W | A | S | D | UP | DOWN | LEFT | RIGHT | OTHER deriving (Eq)
+
+data WinLose = Win | Lose deriving (Eq)
 
 type R = GLdouble
 
